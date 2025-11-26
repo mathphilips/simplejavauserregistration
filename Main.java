@@ -4,16 +4,18 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    public static final int MINIMUM_LENGTH = 8;
+    public static final int MAXIMUM_LENGTH = 15;
 
     static void main() {
         Scanner sc = new Scanner(System.in);
-        var valid = new ValidPassword();
-        var login = new Person();
+        ValidPassword valid = new ValidPassword();
+        Person login = new Person();
 
         System.out.println("Create a new username: ");
         login.username = sc.nextLine();
 
-        while (login.username.length() < 8) {
+        while (login.username.length() < MINIMUM_LENGTH) {
             System.out.println("Your username should be 8 characters long!");
             System.out.println("Write again your new username: ");
             login.username = sc.nextLine();
@@ -22,7 +24,7 @@ public class Main {
         System.out.println("Create a new password: ");
         login.password = sc.nextLine();
 
-        valid.isPasswordInvalid = login.password == null || login.password.trim().isEmpty() || login.password.length() < 8 || login.password.length() >= 15;
+        valid.isPasswordInvalid = login.password == null || login.password.trim().isEmpty() || login.password.length() < MINIMUM_LENGTH || login.password.length() >= MAXIMUM_LENGTH;
         valid.isPasswordEqualsUsername = Objects.equals(login.username, login.password);
 
         while (valid.isPasswordEqualsUsername || valid.isPasswordInvalid) {
@@ -37,7 +39,7 @@ public class Main {
             System.out.println("Write again your new password: ");
             login.password = sc.nextLine();
 
-            valid.isPasswordInvalid = login.password == null || login.password.trim().isEmpty() || login.password.length() < 8 || login.password.length() >= 15;
+            valid.isPasswordInvalid = login.password == null || login.password.trim().isEmpty() || login.password.length() < MINIMUM_LENGTH || login.password.length() >= MAXIMUM_LENGTH;
             valid.isPasswordEqualsUsername = Objects.equals(login.username, login.password);
         }
 
